@@ -1,0 +1,36 @@
+# instalando bibliotecas
+
+# biblioteca de manipulação de texto
+install.packages("tidyverse")
+# biblioteca de web scraping
+install.packages("rvest")
+
+# setando bibliotecas
+library(tidyverse)
+library(rvest)
+
+# atribuindo o site a um objeto
+link <- "https://noticias.uol.com.br/eleicoes/"
+
+# interpretando como uma página html
+site <- read_html(link)
+
+# vendo o que tem no objeto
+site
+
+# raspando os títulos das notícias
+titulo <- html_nodes(site, xpath = '//h3[@class="thumb-title title-xsmall title-lg-small"]')
+
+# pegando apenas o texto e não as tags
+titulo <- html_text(titulo)
+
+# colocando numa tabela / data frame
+eleicoes <- data.frame(noticias = titulo)
+
+# abrindo o data frame
+View(eleicoes)
+
+# exportando em csv
+write.csv(coronavirus, "eleicoes.csv")
+
+getwd()
